@@ -1,0 +1,9 @@
+const heading = React.createElement(
+	'h1',
+	{ id: 'heading' },
+	'Hello World from React!'
+);
+
+
+- Here above heading is an js object which is rendered on the screen inside the root div using root.render() function.
+- 
