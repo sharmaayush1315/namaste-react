@@ -1,0 +1,3 @@
+# Namaste-React :)
+
+npm init
