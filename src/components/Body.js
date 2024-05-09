@@ -1,6 +1,8 @@
 import RestaurantCard from './RestaurantCard';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Shimmer from './Shimmer';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Body = () => {
 	const [restaurantList, setRestaurantList] = useState([]);
@@ -16,7 +18,7 @@ const Body = () => {
 	}, []);
 	const fetchData = async () => {
 		const data = await fetch(
-			'https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6691565&lng=77.45375779999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING'
+			'https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6399344&lng=77.3688489&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING'
 		);
 		const readyData = await data.json();
 		console.log(readyData);
@@ -29,6 +31,8 @@ const Body = () => {
 				?.restaurants
 		);
 	};
+	const onlineStatus = useOnlineStatus();
+
 	const filterFromFullList = () => {
 		setFilteredRestaurants(restaurantList);
 		setFilterButtonText('Top Rated Restaurants');
@@ -40,7 +44,14 @@ const Body = () => {
 		setFilteredRestaurants(filteredList);
 		setFilterButtonText('Show All Restaurants');
 	};
-
+	if (onlineStatus === false)
+		return (
+			<div>
+				<h1>
+					Looks like you are offline, please check your internet connection
+				</h1>
+			</div>
+		);
 	return restaurantList.length === 0 ? (
 		<Shimmer />
 	) : (
@@ -85,7 +96,12 @@ const Body = () => {
 			</div>
 			<div className="res-container">
 				{filteredRestaurants.map((restaurant) => (
-					<RestaurantCard key={restaurant.info.id} resData={restaurant} />
+					<Link
+						to={`/restaurant/${restaurant.info.id}`}
+						key={restaurant.info.id}
+					>
+						<RestaurantCard resData={restaurant} />
+					</Link>
 				))}
 			</div>
 		</div>
