@@ -1,23 +1,32 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
 import Header from './components/Header';
 import Body from './components/Body';
 // import About from './components/About';
-import Contact from './components/Contact';
+import ContactUs from './components/ContactUs';
 import Error from './components/Error';
 import RestaurantMenu from './components/RestaurantMenu';
 import Shimmer from './components/Shimmer';
+import { UserContext } from './utils/UserContext.js';
+import { Provider } from 'react-redux';
+import appStore from './redux/appStore.js';
+import Cart from './components/Cart.js';
 const About = lazy(() => import('./components/About'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const AppLayout = () => {
+	const [userName, setUserName] = useState('');
 	return (
-		<div className="app">
-			<Header />
-			<Outlet />
-		</div>
+		<Provider store={appStore}>
+			<UserContext.Provider value={{ loggedUser: 'Ayush' }}>
+				<div className="">
+					<Header />
+					<Outlet />
+				</div>
+			</UserContext.Provider>
+		</Provider>
 	);
 };
 const appRouter = createBrowserRouter([
@@ -35,8 +44,9 @@ const appRouter = createBrowserRouter([
 					</Suspense>
 				),
 			},
-			{ path: '/contact', element: <Contact /> },
+			{ path: '/contact', element: <ContactUs /> },
 			{ path: '/restaurant/:resId', element: <RestaurantMenu /> },
+			{ path: '/cart/', element: <Cart /> },
 		],
 		errorElement: <Error />,
 	},
