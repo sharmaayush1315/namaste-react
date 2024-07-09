@@ -77,6 +77,7 @@ const ContactUs = () => {
 						type="text"
 						id="name"
 						name="name"
+						placeholder="Enter your name"
 						value={formData.name}
 						onChange={handleChange}
 						className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 ${

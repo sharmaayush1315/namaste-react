@@ -10,13 +10,13 @@ const Header = () => {
 	const cartIems = useSelector((store) => {
 		return store.cart.items;
 	});
-	console.log(cartIems);
+	// console.log(cartIems);
 	const onlineStatus = useOnlineStatus();
 	const { loggedUser } = useContext(UserContext);
 	return (
 		<div className="flex justify-between shadow-lg h-28 mb-2 bg-blue-50">
 			<div className="logo-container">
-				<img className="h-28" src={LOGO_URL} />
+				<img name="logo-img" className="h-28" src={LOGO_URL} />
 			</div>
 			<div className="self-center">
 				<ul className="flex m-4 p-4 ">

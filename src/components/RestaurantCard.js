@@ -4,6 +4,7 @@ import { UserContext } from '../utils/UserContext';
 const RestaurantCard = (props) => {
 	const { loggedUser } = useContext(UserContext);
 	const { resData } = props;
+	console.log(resData);
 	const {
 		cloudinaryImageId,
 		name,
